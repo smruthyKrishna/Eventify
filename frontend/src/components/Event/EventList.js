@@ -15,7 +15,7 @@ const EventList = () => {
         Promise.reject();
     })
     .catch((err) => alert(err));
-  })
+  },[]);
   
   const EventListItems  = () => {
     return arr.map((val, index) => {

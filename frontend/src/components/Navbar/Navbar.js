@@ -10,11 +10,14 @@ export default function Navbar(props){
     const [user, setUser] = useState();
 
     useEffect(() => {
-        setInterval(() => {
+        const intervalId =   setInterval(() => {
             const user = localStorage.getItem("user");
             setUser(user);
-        }, [])
-    }, 5000)
+      //  }, [])
+    }, 5000);
+    return () => clearInterval(intervalId); // Cleanup interval
+}, []);
+    
     
     const logout = () => {
         localStorage.setItem("loginStatus", false);
@@ -23,10 +26,10 @@ export default function Navbar(props){
 
     if (user === "admin"){
         return(
-            <nav class="navbar navbar-expand-lg">
-                <div class = "container-fluid box">
+            <nav className="navbar navbar-expand-lg">
+                <div className = "container-fluid box">
                 <img className = "logo" src = {Logo}></img>
-                <div class="menu">
+                <div className="menu">
                     <ul>
                     <li><Link to = "/">Home</Link></li>
                     <li><Link to = "/view-event">View Events</Link></li>
@@ -34,12 +37,12 @@ export default function Navbar(props){
                     <li><Link to = "/view-user">View Users</Link></li>
                 </ul>
                 </div>
-                <div class = "dropdown">
-                    <button class = "dropbtn">
+                <div className = "dropdown">
+                    <button className = "dropbtn">
                         <BiSolidUserCircle className="usericon admin"/>
                         {user}
                     </button>
-                    <div class = "dropdown-content admin">
+                    <div className = "dropdown-content admin">
                         <Link to = "/" onClick={logout}>Logout</Link>
                     </div>
                     
@@ -51,22 +54,22 @@ export default function Navbar(props){
 
     else if(user){
         return(
-            <nav class="navbar navbar-expand-lg">
-                <div class="container-fluid box"> 
+            <nav className="navbar navbar-expand-lg">
+                <div className="container-fluid box"> 
                 <img className = "logo" src = {Logo}></img>
-                <div class="menu">
+                <div className="menu">
                     <ul>
                     <li><Link to = "/">Home</Link></li>
                     <li><Link to = "/view-event">Events</Link></li>
                     <li><Link to = "/contact">CONTACT US</Link></li>
                 </ul>
                 </div>
-                <div class = "dropdown">
-                    <button class = "dropbtn">
+                <div className = "dropdown">
+                    <button className = "dropbtn">
                         <BiSolidUserCircle className="usericon user"/>
                         {user}
                     </button>
-                    <div class = "dropdown-content user">
+                    <div className = "dropdown-content user">
                         <Link to = "/edit-profile">Edit Profile</Link>
                         <Link to = "/booked-events">Booked Events</Link>
                         <Link to = "/" onClick={logout}>Logout</Link>
@@ -79,10 +82,10 @@ export default function Navbar(props){
     }
     else{
         return(
-            <nav class="navbar navbar-expand-lg">
-                <div class="container-fluid box">
+            <nav className="navbar navbar-expand-lg">
+                <div className="container-fluid box">
                 <img className = "logo" src = {Logo}></img>
-                <div class="menu">
+                <div className="menu">
                     <ul>
                     <li><Link to = "/">Home</Link></li>
                     <li><Link to = "/contact">CONTACT US</Link></li>

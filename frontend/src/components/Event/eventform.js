@@ -33,7 +33,7 @@ const EventRegistrationForm = (props) => {
       setButtonTitle("Update");
     }
   }, [props.nameValue, props.startTimeValue, props.endTimeValue, 
-    props.dateValue, props.descriptionValue, props.clubValue, props.slotsValue])
+    props.dateValue, props.descriptionValue, props.clubValue, props.slotsValue]);
 
   const [formErrors, setFormErrors] = useState({
     name:'',
@@ -44,7 +44,7 @@ const EventRegistrationForm = (props) => {
     description:'',
     club: '',
     slots: '',
-  });
+  },[]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

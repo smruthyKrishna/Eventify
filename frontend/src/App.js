@@ -26,13 +26,15 @@ function App() {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    setInterval(() => {
+    const intervalId = setInterval(() => {
         const loginStatus = localStorage.getItem("loginStatus");
         const user = localStorage.getItem("user");
         setLoggedIn(loginStatus);
         setUser(user);
-    }, [])
+   // }, [])
 }, 5000)
+return () => clearInterval(intervalId);  // cleanup
+}, []); 
 
   return (
     <div className="App">

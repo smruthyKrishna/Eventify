@@ -106,10 +106,10 @@ function EventCard(props){
             <table className='userTable' border = "1" bordercolor = "white" cellspacing = "0" cellpadding = "5">
                 <thead>
                     <tr>
-                        <th class = "text-center">Username</th>
-                        <th class = "text-center">Full Name</th>
-                        <th class = "text-center">Email</th>
-                        <th class = "text-center">Phone</th>
+                        <th className = "text-center">Username</th>
+                        <th className = "text-center">Full Name</th>
+                        <th className = "text-center">Email</th>
+                        <th className = "text-center">Phone</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -245,7 +245,7 @@ function EventCard(props){
             
             );
         }
-    }, [])
+    }, []);
 
     
 

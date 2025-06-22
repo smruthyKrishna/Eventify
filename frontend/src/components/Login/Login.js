@@ -1,64 +1,86 @@
-import { useState } from "react";
-import Axios from "axios";
-import { Link } from "react-router-dom";
+// src/components/Login/Login.js
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import Axios from 'axios';
 
-export default function Login(){
-    const [name, setName] = useState("");
-    const [password, setPassword] = useState("");
+export default function Login() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();                   // ⬅️ programmatic nav
 
-
-    const handleClick = () => {
-        if (!password){
-            alert("Password cannot be empty");
-            return;
-        }
-
-        if (name === "admin" && password === "123"){
-            localStorage.setItem("loginStatus", true);
-            localStorage.setItem("user", name);
-            alert("Welcome admin");
-        }
-
-        else{
-        Axios.get("https://eventhub-t514.onrender.com/eventRoute/check-user/" + name)
-        .then((res) => {
-            if(res.status === 200)
-            {   
-                if(res.data != null)
-                {
-                    if(res.data.password === password){
-                        localStorage.setItem("loginStatus", true);
-                        localStorage.setItem("user", name);
-                        localStorage.setItem("userID", res.data._id);
-                        console.log(localStorage.getItem("userID"));
-                    
-                    }
-                    else
-                        alert("Incorrect username or password");
-                    
-                }
-                else
-                    alert("Incorrect username or password");     
-            }
-            else
-                Promise.reject();
-        })
-        .catch((err) => alert(err));
-    
-        }
+  const handleLogin = async () => {
+    if (!password.trim()) {
+      alert('Password cannot be empty');
+      return;
     }
-    
-    return(
-        <div class="form">
-                    <h2>Login</h2>
-                    <input onChange = {(event) => setName(event.target.value)} type="text" name="uname" placeholder="Enter Username Here"/>
-                    <input onChange = {(event) => setPassword(event.target.value)} type="password" name="" placeholder="Enter Password Here"/>
-                    <button class="btnn" onClick = {handleClick} type = "submit"><a href="#">Login</a></button>
 
-                    <p class="link">Don't have an account?<br/>
-                    <Link to ="/register">Sign up </Link> here</p>
-                    
+    // ────────────────────────────────
+    // ⚙️  ADMIN SHORT-CIRCUIT
+    // ────────────────────────────────
+    if (username === 'admin' && password === '123') {
+      localStorage.setItem('loginStatus', 'true');
+      localStorage.setItem('user', 'admin');
+      alert('Welcome admin');
+      navigate('/');                                // ⬅️ send to home
+      return;
+    }
 
-        </div>
-    )
+    // ────────────────────────────────
+    // ⚙️  NORMAL USER LOGIN
+    // ────────────────────────────────
+    try {
+      const { data, status } = await Axios.get(
+        `https://eventhub-t514.onrender.com/eventRoute/check-user/${username}`
+      );
+
+      if (status !== 200 || !data) {
+        alert('Incorrect username or password');
+        return;
+      }
+
+      if (data.password !== password) {
+        alert('Incorrect username or password');
+        return;
+      }
+
+      // ✅ success
+      localStorage.setItem('loginStatus', 'true');
+      localStorage.setItem('user', username);
+      localStorage.setItem('userID', data._id);
+      navigate('/');                                // ⬅️ redirect after login
+    } catch (err) {
+      console.error('Login API error:', err);
+      alert('Login failed – please try again.');
+    }
+  };
+
+  return (
+    <div className="form">
+      <h2>Login</h2>
+
+      <input
+        type="text"
+        placeholder="Enter Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+
+      <input
+        type="password"
+        placeholder="Enter Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+
+      {/* button only – no nested anchor */}
+      <button className="btnn" type="button" onClick={handleLogin}>
+        Login
+      </button>
+
+      <p className="link">
+        Don&apos;t have an account?&nbsp;
+        <Link to="/register">Sign up</Link>
+      </p>
+    </div>
+  );
 }

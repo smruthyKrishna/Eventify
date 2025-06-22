@@ -17,7 +17,7 @@ export default function BookedEventsList(){
             else
                 Promise.reject();
         })
-    })
+    },[]);
 
     const BookedItems = () => {
         return arr.map((val, index) => {
