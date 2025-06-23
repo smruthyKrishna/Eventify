@@ -245,7 +245,7 @@ function EventCard(props){
             
             );
         }
-    }, []);
+    }, [user, props.action]);
 
     
 

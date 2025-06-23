@@ -3,7 +3,7 @@ import Axios from "axios";
 
 import EventCard from "./EventCard";
 
-export default function BookedEventsList(){
+export default function BookedEventsList(props){
     const [arr, setArr] = useState([])
     const user = localStorage.getItem("user");
     useEffect(() => {
@@ -17,7 +17,7 @@ export default function BookedEventsList(){
             else
                 Promise.reject();
         })
-    },[]);
+    },[user, props.action]);
 
     const BookedItems = () => {
         return arr.map((val, index) => {
