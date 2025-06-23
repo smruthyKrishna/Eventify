@@ -7,15 +7,15 @@ const EventList = () => {
 
   useEffect(() => {
     Axios.get("https://eventhub-t514.onrender.com/eventRoute/event-list")
-    .then((res) => {
-      if(res.status === 200)
-        setArr(res.data);
-        // console.log(arr);}
-      else
-        Promise.reject();
-    })
-    .catch((err) => alert(err));
-  },[]);
+      .then((res) => {
+        if (res.status === 200) {
+          setArr(res.data);
+        } else {
+          return Promise.reject();
+        }
+      })
+      .catch((err) => alert(err));
+  }, []);
   
   const EventListItems  = () => {
     return arr.map((val, index) => {

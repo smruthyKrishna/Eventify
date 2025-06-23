@@ -245,7 +245,7 @@ function EventCard(props){
             
             );
         }
-    }, [user, props.action]);
+    }, [user, props.action, Book, updateEvent, viewRegisteredUsers, deleteEvent]);
 
     
 

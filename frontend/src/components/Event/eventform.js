@@ -19,21 +19,34 @@ const EventRegistrationForm = (props) => {
 
   useEffect(() => {
     setFormData({
-    name: `${props.nameValue}`,
-    startTime: `${props.startTimeValue}`,
-    endTime: `${props.endTimeValue}`,
-    date: `${props.dateValue}`,
-    place: `${props.placeValue}`,
-    description: `${props.descriptionValue}`,
-    club: `${props.clubValue}`,
-    slots: `${props.slotsValue}`,
-    })
-    if(props.action === "update"){
+      name: props.nameValue,
+      startTime: props.startTimeValue,
+      endTime: props.endTimeValue,
+      date: props.dateValue,
+      place: props.placeValue,
+      description: props.descriptionValue,
+      club: props.clubValue,
+      slots: props.slotsValue,
+    });
+  
+    if (props.action === "update") {
       setTitle("Event Updation Form");
       setButtonTitle("Update");
+    } else {
+      setTitle("Event Creation Form");
+      setButtonTitle("Create");
     }
-  }, [props.nameValue, props.startTimeValue, props.endTimeValue, 
-    props.dateValue, props.descriptionValue, props.clubValue, props.slotsValue]);
+  }, [
+    props.nameValue,
+    props.startTimeValue,
+    props.endTimeValue,
+    props.dateValue,
+    props.placeValue,
+    props.descriptionValue,
+    props.clubValue,
+    props.slotsValue,
+    props.action // ✅ important for ESLint
+  ]);
 
   const [formErrors, setFormErrors] = useState({
     name:'',
