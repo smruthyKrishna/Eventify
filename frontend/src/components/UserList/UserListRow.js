@@ -1,47 +1,53 @@
 import Axios from "axios";
-import { Link } from "react-router-dom";
+import { useCallback } from "react";
 
 function UserListRow(props) {
-  const { _id, username, fullName, email, phone, password, bookedEvents } = props.obj;
+  const { _id, username, fullName, email, phone } = props.obj;
 
-  const handleClick = () => {
-    // 1️⃣ Delete the user
+  const handleClick = useCallback(() => {
+    // Delete the user
     Axios.delete(`https://eventhub-t514.onrender.com/eventRoute/delete-user/${_id}`)
       .then((res) => {
         if (res.status === 200) {
           alert("Record deleted successfully");
-          // Reloads the current route (no redirect to /)
-          window.location.reload();
+          // Then clean up all events
+          Axios.get("https://eventhub-t514.onrender.com/eventRoute/event-list")
+            .then((eventResponse) => {
+              if (eventResponse.status === 200) {
+                const collectedEvents = eventResponse.data;
+                collectedEvents.forEach((eventData) => {
+                  const updatedUsers = eventData.registeredUsers.filter(
+                    (user) => user.username !== username
+                  );
+
+                  if (updatedUsers.length !== eventData.registeredUsers.length) {
+                    // Only update if something actually changed
+                    Axios.put(
+                      `https://eventhub-t514.onrender.com/eventRoute/update-event/${eventData._id}`,
+                      { ...eventData, registeredUsers: updatedUsers }
+                    )
+                      .then((updateRes) => {
+                        if (updateRes.status === 200) {
+                          console.log("User removed from event:", eventData.name);
+                        } else {
+                          return Promise.reject();
+                        }
+                      })
+                      .catch((updateError) => alert(updateError));
+                  }
+                });
+              }
+            })
+            .catch((eventErr) => alert(eventErr));
+
+          // Refresh the page after all cleanup
+          setTimeout(() => window.location.reload(), 1000);
         } else {
           return Promise.reject();
         }
       })
       .catch((err) => alert(err));
-
-    // 2️⃣ Clean up the user's registrations in all events
-    Axios.get("https://eventhub-t514.onrender.com/eventRoute/event-list")
-      .then((eventResponse) => {
-        if (eventResponse.status === 200) {
-          const collectedEvents = eventResponse.data;
-          for (let i = 0; i < collectedEvents.length; i++) {
-            let eventData = collectedEvents[i];
-            eventData.registeredUsers = eventData.registeredUsers.filter(
-              (user) => user.username !== username
-            );
-
-            Axios.put(
-              `https://eventhub-t514.onrender.com/eventRoute/update-event/${eventData._id}`,
-              eventData
-            )
-              .then((updateResponse) => {
-                if (updateResponse.status === 200) console.log("Event details updated");
-                else Promise.reject();
-              })
-              .catch((updateError) => alert(updateError));
-          }
-        }
-      });
-  };
+  }, [_id, username]);
 
   return (
     <tr>
@@ -49,9 +55,7 @@ function UserListRow(props) {
       <td>{fullName}</td>
       <td>{email}</td>
       <td>{phone}</td>
-
       <td className="d-flex justify-content-center">
-        {/* Explicitly set type to prevent form-submit navigation */}
         <button type="button" onClick={handleClick} className="btn delete-button">
           Delete
         </button>
