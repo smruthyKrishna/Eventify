@@ -18,16 +18,18 @@ const EventRegistrationForm = (props) => {
   const [buttonTitle, setButtonTitle] = useState("Create");
 
   useEffect(() => {
-    setFormData({
-      name: props.nameValue,
-      startTime: props.startTimeValue,
-      endTime: props.endTimeValue,
-      date: props.dateValue,
-      place: props.placeValue,
-      description: props.descriptionValue,
-      club: props.clubValue,
-      slots: props.slotsValue,
-    });
+    const updatedForm = {
+      name: props.nameValue || '',
+      startTime: props.startTimeValue || '',
+      endTime: props.endTimeValue || '',
+      date: props.dateValue || '',
+      place: props.placeValue || '',
+      description: props.descriptionValue || '',
+      club: props.clubValue || '',
+      slots: props.slotsValue || ''
+    };
+  
+    setFormData(updatedForm);
   
     if (props.action === "update") {
       setTitle("Event Updation Form");
@@ -36,17 +38,7 @@ const EventRegistrationForm = (props) => {
       setTitle("Event Creation Form");
       setButtonTitle("Create");
     }
-  }, [
-    props.nameValue,
-    props.startTimeValue,
-    props.endTimeValue,
-    props.dateValue,
-    props.placeValue,
-    props.descriptionValue,
-    props.clubValue,
-    props.slotsValue,
-    props.action // ✅ important for ESLint
-  ]);
+  }, [props]);
 
   const [formErrors, setFormErrors] = useState({
     name:'',
@@ -174,7 +166,7 @@ const EventRegistrationForm = (props) => {
             onChange={handleChange}
             required
           />
-          <div classNmae='error'>{formErrors.startTime}</div>
+          <div className='error'>{formErrors.startTime}</div>
         </div>
         <div>
           <label htmlFor="endTime">Event End Time:</label>

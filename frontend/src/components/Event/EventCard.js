@@ -215,37 +215,52 @@ function EventCard(props){
     const [actionButton, setActionButton] = useState();
 
     useEffect(() => {
-        if (props.action === "book"){
-            setActionButton(
-            <button className='cardButton' style={{"backgroundColor": "greenyellow"}} onClick={Book}>
-                Book Now!
-            </button>);
-        }
-
-        else if (props.action === "view"){
-            setActionButton();
-        }
-
-        if (user === "admin"){
-            setUpdateButton(
-            <button className='cardButton' style={{"backgroundColor": "green"}} onClick={updateEvent}>
-                Update
+        if (props.action === "book") {
+          setActionButton(
+            <button
+              className='cardButton'
+              style={{ backgroundColor: "greenyellow" }}
+              onClick={() => Book()}
+            >
+              Book Now!
             </button>
-            )
-            setActionButton( 
+          );
+        } else if (props.action === "view") {
+          setActionButton(null);
+        }
+      
+        if (user === "admin") {
+          setUpdateButton(
+            <button
+              className='cardButton'
+              style={{ backgroundColor: "green" }}
+              onClick={() => updateEvent()}
+            >
+              Update
+            </button>
+          );
+      
+          setActionButton(
             <div>
-            <button className='cardButton' style={{"backgroundColor": "#ff7200"}} onClick={viewRegisteredUsers}>
+              <button
+                className='cardButton'
+                style={{ backgroundColor: "#ff7200" }}
+                onClick={() => viewRegisteredUsers()}
+              >
                 Registered Users
-            </button>
-            <button className='cardButton' style={{"backgroundColor": "red"}} onClick={deleteEvent}>
+              </button>
+              <button
+                className='cardButton'
+                style={{ backgroundColor: "red" }}
+                onClick={() => deleteEvent()}
+              >
                 Delete
-            </button>
-            
+              </button>
             </div>
-            
-            );
+          );
         }
-    }, [user, props.action, Book, updateEvent, viewRegisteredUsers, deleteEvent]);
+      }, [user, props.action]);
+      
 
     
 
