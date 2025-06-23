@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const eventRoute = require("./controller/eventRoute");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+require('dotenv').config();
 
 const app = express();
 
