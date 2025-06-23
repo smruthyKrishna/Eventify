@@ -178,7 +178,7 @@ const EventRegistrationForm = (props) => {
             onChange={handleChange}
             required
           />
-          <div classNmae='error'>{formErrors.endTimeTime}</div>
+          <div className='error'>{formErrors.endTimeTime}</div>
         </div>
         <div>
           <label htmlFor="date">Event Date:</label>
@@ -190,7 +190,7 @@ const EventRegistrationForm = (props) => {
             onChange={handleChange}
             required
           />
-          <div classNmae='error'>{formErrors.date}</div>
+          <div className='error'>{formErrors.date}</div>
         </div>
         <div>
           <label htmlFor="place">Event Place:</label>
@@ -202,7 +202,7 @@ const EventRegistrationForm = (props) => {
             onChange={handleChange}
             required
           />
-          <div classNmae='error'>{formErrors.place}</div>
+          <div className='error'>{formErrors.place}</div>
         </div>
         <div>
           <label htmlFor="description">Description:</label>
@@ -214,7 +214,7 @@ const EventRegistrationForm = (props) => {
             placeholder="Enter details about event"
             required
           />
-          <div classNmae='error'>{formErrors.description}</div>
+          <div className='error'>{formErrors.description}</div>
         </div>
         <div>
           <label htmlFor="club">Name of the Club:</label>
@@ -226,7 +226,7 @@ const EventRegistrationForm = (props) => {
             onChange={handleChange}
             required
           />
-          <div classNmae='error'>{formErrors.club}</div>
+          <div className='error'>{formErrors.club}</div>
         </div>
         <div>
           <label htmlFor="slots">Number of Slots:</label>
@@ -238,7 +238,7 @@ const EventRegistrationForm = (props) => {
             onChange={handleChange}
             required
           />
-          <div classNmae='error'>{formErrors.slots}</div>
+          <div className='error'>{formErrors.slots}</div>
         </div>
         <button className='button' type="submit">{buttonTitle}</button>
       </form>
