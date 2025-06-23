@@ -1,32 +1,40 @@
 {
  "name": "frontend",
-  "version": "0.1.0",
-  "private": true,
-  "homepage": "https://smruthykrishna.github.io/Eventify",
-  "dependencies": {
-    "axios": "^1.6.0",
-    "bootstrap": "^5.3.2",
-    "dotenv": "^16.5.0",
-    "react-router-dom": "^6.18.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "predeploy": "npm run build",
-    "deploy": "cp -r build/* docs/"
-  },
-  "eslintConfig": {
-    "extends": ["react-app", "react-app/jest"]
-  },
-  "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "gh-pages": "^6.3.0"
-  }
+ "version": "0.1.0",
+ "private": true,
+ "homepage": "https://smruthykrishna.github.io/Eventify",
+ "dependencies": {
+  "axios": "^1.6.0",
+  "bootstrap": "^5.3.2",
+  "dotenv": "^16.5.0",
+  "react-router-dom": "^6.18.0"
+ },
+ "scripts": {
+  "start": "react-scripts start",
+  "build": "react-scripts build",
+  "predeploy": "npm run build",
+  "deploy": "cp -r build/* docs/"
+ },
+ "eslintConfig": {
+  "extends": [
+   "react-app",
+   "react-app/jest"
+  ]
+ },
+ "browserslist": {
+  "production": [
+   ">0.2%",
+   "not dead",
+   "not op_mini all"
+  ],
+  "development": [
+   "last 1 chrome version",
+   "last 1 firefox version",
+   "last 1 safari version"
+  ]
+ },
+ "devDependencies": {
+  "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+  "gh-pages": "^6.3.0"
+ }
 }
